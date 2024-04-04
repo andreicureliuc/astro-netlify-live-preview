@@ -1,19 +1,22 @@
-import { defineConfig } from 'astro/config';
-import storyblok from '@storyblok/astro';
-import tailwind from '@astrojs/tailwind';
+import { defineConfig } from 'astro/config'
+import storyblok from '@storyblok/astro'
+import tailwind from '@astrojs/tailwind'
+import basicSsl from '@vitejs/plugin-basic-ssl'
 import netlify from "@astrojs/netlify/functions";
 
+// https://astro.build/config
 export default defineConfig({
   output: 'server',
   adapter: netlify(),
   integrations: [
     storyblok({
-      accessToken: ' iXysrbfA4PsWSq6lFKEj0wtt',
+      accessToken: 'iXysrbfA4PsWSq6lFKEj0wtt',
       apiOptions: {
-        cache: { clear: 'auto', type: 'memory' },
+        region: '',
       },
-      bridge: true,
-      enableFallbackComponent: true,
+      bridge: {
+        customParent: 'https://app.storyblok.com',
+      },
       components: {
         page: 'storyblok/Page',
         feature: 'storyblok/Feature',
@@ -23,4 +26,10 @@ export default defineConfig({
     }),
     tailwind(),
   ],
-});
+  vite: {
+    plugins: [basicSsl()],
+    server: {
+      https: true,
+    },
+  },
+})
