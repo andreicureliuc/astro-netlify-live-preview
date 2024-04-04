@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config'
 import storyblok from '@storyblok/astro'
 import tailwind from '@astrojs/tailwind'
 import basicSsl from '@vitejs/plugin-basic-ssl'
-import netlify from "@astrojs/netlify/functions";
+import netlify from "@astrojs/netlify";
 
 // https://astro.build/config
 export default defineConfig({
